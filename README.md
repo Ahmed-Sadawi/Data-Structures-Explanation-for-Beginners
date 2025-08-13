@@ -45,52 +45,37 @@ cd Data-Structures-Explanation-for-Beginners
 ```
 arrays/
   ├── array_explanation.md
+  ├── Notes
   └── array.cpp
 linked_lists/
   ├── linked_list_explanation.md
+  ├── Notes
   └── linked_list.cpp
 stacks/
   ├── stack_explanation.md
   └── stack.cpp
 queues/
   ├── queue_explanation.md
+  ├── Notes
   └── queue.cpp
 trees/
   ├── tree_explanation.md
+  ├── Notes
   └── tree.cpp
-...
+...And so on
 ```
 
 ---
 
-## List of Data Structures
+## List of Data Structures we will discover
 
-| Data Structure | Explanation                                | Code Example        |
-| -------------- | ------------------------------------------ | ------------------ |
-| Arrays         | [Explanation](arrays/array_explanation.md) | [array.cpp](arrays/array.cpp) |
-| Linked List    | [Explanation](linked_lists/linked_list_explanation.md) | [linked_list.cpp](linked_lists/linked_list.cpp) |
-| Stack          | [Explanation](stacks/stack_explanation.md) | [stack.cpp](stacks/stack.cpp) |
-| Queue          | [Explanation](queues/queue_explanation.md) | [queue.cpp](queues/queue.cpp) |
-| Trees          | [Explanation](trees/tree_explanation.md)   | [tree.cpp](trees/tree.cpp) |
-| ...            | ...                                        | ...                |
-
+|                            Data Structure                                  |
+| ---------------------------------------------------------------------------|
+| Arrays         | 
+|Linked List     | 
+|Stack           |
 ---
 
-## Example Usage
-
-```cpp
-#include "linked_lists/linked_list.cpp"
-
-int main() {
-    LinkedList list;
-    list.insert(10);
-    list.insert(20);
-    list.display();
-    return 0;
-}
-```
-
----
 
 ## Contributing
 
