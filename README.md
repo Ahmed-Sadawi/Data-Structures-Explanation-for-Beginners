@@ -69,12 +69,12 @@ trees/
 
 ## List of Data Structures we will discover
 
-|                            Data Structure                                  |
-| ---------------------------------------------------------------------------|
-| Arrays         | 
-|Linked List     | 
-|Stack           |
----
+
+| Data Structure |
+| -------------- |
+| [Array](arrays/array_explanation.md) |
+| [Linked List](linked_lists/linked_list_explanation.md) |
+| [Stack](stacks/stack_explanation.md) |
 
 
 ## Contributing
