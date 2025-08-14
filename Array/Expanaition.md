@@ -10,9 +10,7 @@ When you initialize:
 int arr[5];
 ```
 and compile the program, the compiler determines the total amount of memory needed for this array as:
-----
-  number of elements × size of each element
----
+  **number of elements × size of each element**
 It then reserves this block from memory. This fixed memory allocation makes arrays static.
 
 
@@ -61,3 +59,4 @@ array[2] // returns 30
 
 
 Think of an array like a row of mailboxes, each with a number. You can quickly go to any mailbox by its number, but if you want to add a new mailbox in the middle, you have to shift all the ones after it.
+
