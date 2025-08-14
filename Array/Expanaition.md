@@ -2,7 +2,7 @@
 
 ## Definition
 
-An **array** contiguous area of memory consisting of equal size elements indexed by contiguous integres.
+An **array** is a contiguous area of memory consisting of equal-sized elements indexed by contiguous integers.
 
 ## Explanation
 When you initialize:
@@ -13,7 +13,7 @@ and compile the program, the compiler determines the total amount of memory need
 ----
   number of elements × size of each element
 ---
-It then reserves this block from memory, This fixed memory allocation makes arrays static.
+It then reserves this block from memory. This fixed memory allocation makes arrays static.
 
 
 
@@ -37,7 +37,7 @@ It then reserves this block from memory, This fixed memory allocation makes arra
 
 **Pros:**
 - Simple to implement and use
-- Fast access using index
+- Fast access using the index
 
 **Cons:**
 - Fixed size (cannot grow or shrink after creation)
@@ -58,5 +58,6 @@ array[2] // returns 30
 ```
 
 ## Analogy
+
 
 Think of an array like a row of mailboxes, each with a number. You can quickly go to any mailbox by its number, but if you want to add a new mailbox in the middle, you have to shift all the ones after it.
