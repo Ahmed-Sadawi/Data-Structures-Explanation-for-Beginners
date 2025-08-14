@@ -72,7 +72,7 @@ trees/
 
 | Data Structure |
 | -------------- |
-| [Array](arrays/array_explanation.md) |
+| [Array](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Array) |
 | [Linked List](linked_lists/linked_list_explanation.md) |
 | [Stack](stacks/stack_explanation.md) |
 
