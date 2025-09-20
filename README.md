@@ -73,8 +73,10 @@ trees/
 | Data Structure |
 | -------------- |
 | [Array](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Array) |
-| [Linked List](linked_lists/linked_list_explanation.md) |
-| [Stack](stacks/stack_explanation.md) |
+| [Linked List](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Linked%20List) |
+| [Stack](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Stack) |
+| [Queue](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Queue) |
+| [Tree](https://github.com/Ahmed-Sadawi/Data-Structures-Explanation-for-Beginners./tree/main/Tree) |
 
 
 ## Contributing
