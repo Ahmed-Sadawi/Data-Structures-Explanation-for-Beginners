@@ -18,6 +18,8 @@ class AVL {
      int getHi(Node* node);
      void modifyHi(Node* node);
      int getBalance(Node* node);
+     Node* rotation_R (Node* node);
+     Node* rotation_L (Node* node);
      void inorder(Node* node);
 
 
@@ -39,6 +41,48 @@ void AVL ::modifyHi(Node* node){
 int AVL::getBalance(Node *node)
 {
     return node ? getHi(node->left) - getHi(node->right) : 0;  
+}
+// Rotation Right to fix LL problem
+Node* AVL::rotation_R(Node* node){
+
+   //1-put Left Ch in temp (which makes the imbalance)
+     Node* temp = node->left;
+    
+   //2-Childern Modification
+     node->left = temp->right;
+     temp->right = node;
+
+   //3-Parent Modification
+     temp->parent = node->parent;
+     node->parent = temp;
+     if(node->left) node->left->parent = node;
+   //4-Hights Modification
+     modifyHi(node);
+     modifyHi(temp);
+return temp;
+}
+int AVL::getBalance(Node *node)
+{
+    return node ? getHi(node->left) - getHi(node->right) : 0;  
+}
+// Rotation Right to fix LL problem
+Node* AVL::rotation_L(Node* node){
+
+   //1-put Right Ch in temp (which makes the imbalance)
+     Node* temp = node->right;
+    
+   //2-Childern Modification
+     node->right = temp->left;
+     temp->left = node;
+
+   //3-Parent Modification
+     temp->parent = node->parent;
+     node->parent = temp;
+     if(node->right) node->right->parent = node;
+   //4-Hights Modification
+     modifyHi(node);
+     modifyHi(temp);
+return temp;
 }
 
 void AVL:: inorder(Node* node){
