@@ -22,14 +22,16 @@ class AVL {
      Node* rotation_L (Node* node);
      Node* findsuitPlace(Node* node, int key);
      void insert(Node* node, int key);
+     void dele (Node* node, int key);
      void inorder(Node* node);
 
 
     public:
      AVL () : root(nullptr){}
      int getHi() {return getHi(root);}
-     void  insert(int key) {return insert(root, key);}
+     void  insert(int key) { insert(root, key);}
      void inorder() {inorder(root);}
+     void deleteKey(int key) { dele(root, key);}
 };
 
 int AVL::getHi(Node* node){
@@ -62,11 +64,6 @@ Node* AVL::rotation_R(Node* node){
      modifyHi(node);
      modifyHi(temp);
 return temp;
-}
-
-int AVL::getBalance(Node *node)
-{
-    return node ? getHi(node->left) - getHi(node->right) : 0;  
 }
 
 // Rotation Right to fix LL problem
@@ -108,6 +105,10 @@ Node* AVL ::findsuitPlace(Node* node, int key){
 
 void AVL ::insert(Node* node, int key){
   Node* suitP = findsuitPlace(node, key);
+  if (root == nullptr) {
+    root = suitP;// the condition of while will fail if the tree is empty
+    return;
+  }
   while(suitP->parent != nullptr){
     // with evey iteration update the hight
     modifyHi(suitP);
@@ -140,7 +141,81 @@ void AVL ::insert(Node* node, int key){
     } 
     suitP = suitP->parent;
   }
-   
+   return node;
+}
+Node* find (Node* node, int key){
+  if(node == nullptr){
+    cout<< "the tree is empty";
+    return nullptr;
+  }else if (key < node->val )return find(node->left,key);
+  else if(key > node->val) return find(node->right, key);
+  else return node;
+}
+
+Node* succ (Node* node){
+  Node* curr = node->right;
+  while (curr != nullptr && curr->left != nullptr) curr=curr->left;
+  return curr; 
+}
+void :: dele(Node* node , int key){
+  Node* placeOfnode = find(node, key);
+  if (placeOfnode == nullptr) {
+      return; // Not found
+  }
+
+  if(placeOfnode->left && placeOfnode->right){
+    Node* suitreplaceNode = succ(placeOfnode);
+    placeOfnode->val = suitreplaceNode->val;
+    placeOfnode = suitreplaceNode;
+  }
+
+  Node* rebalanceStart = placeOfnode->parent;
+  Node* child = (placeOfnode->left) ? placeOfnode->left : placeOfnode->right;
+
+  if(child != nullptr ) child->parent = rebalanceStart;
+
+  if(rebalanceStart == nullptr) root = child;
+
+  if ( rebalanceStart->left ==  placeOfnode){
+    rebalanceStart->left = child;
+  }
+  if (rebalanceStart->right == placeOfnode){
+    rebalanceStart->right = child;
+  }
+  delete placeOfnode;
+
+  
+  while (rebalanceStart != nullptr){
+  modifyHi(rebalanceStart);
+  int balance = getBalance(rebalanceStart);
+  Node* currentParent = rebalanceStart->parent; 
+  Node* newSubtreeRoot = rebalanceStart;
+  if(balance > 1){
+    if(getBalance(rebalanceStart->left)>=0){
+      rebalanceStart = rotation_R(rebalanceStart);
+    }else {
+      rebalanceStart->left = rotation_L(rebalanceStart);
+      rebalanceStart = rotation_R(rebalanceStart);
+    }
+  }
+  else if(balance < -1){
+    if(getBalance(rebalanceStart->left )<=0){
+      rebalanceStart = rotation_L(rebalanceStart);
+    }else {
+      rebalanceStart->right = rotation_R(rebalanceStart);
+      rebalanceStart = rotation_L(rebalanceStart);
+    }
+  }
+  if (currentParent == nullptr) {
+        root = newSubtreeRoot;
+    } else if (currentParent->left == rebalanceStart) {
+        currentParent->left = newSubtreeRoot;
+    } else {
+        currentParent->right = newSubtreeRoot;
+    }
+    rebalanceStart = currentParent;
+ 
+ }
 }
 
 void AVL:: inorder(Node* node){
