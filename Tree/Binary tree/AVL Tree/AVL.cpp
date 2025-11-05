@@ -22,7 +22,7 @@ class AVL {
      Node* rotation_L (Node* node);
      Node* findsuitPlace(Node* node, int key);
      void insert(Node* node, int key);
-     void dele (Node* node, int key);
+     Node* dele (Node* node, int key);
      void inorder(Node* node);
 
 
@@ -143,80 +143,62 @@ void AVL ::insert(Node* node, int key){
   }
    return node;
 }
-Node* find (Node* node, int key){
-  if(node == nullptr){
-    cout<< "the tree is empty";
-    return nullptr;
-  }else if (key < node->val )return find(node->left,key);
-  else if(key > node->val) return find(node->right, key);
-  else return node;
-}
+
 
 Node* succ (Node* node){
   Node* curr = node->right;
   while (curr != nullptr && curr->left != nullptr) curr=curr->left;
   return curr; 
 }
-void :: dele(Node* node , int key){
-  Node* placeOfnode = find(node, key);
-  if (placeOfnode == nullptr) {
-      return; // Not found
-  }
+Node* AVL :: dele(Node* node , int key){
+  if(node == nullptr) return nullptr;
+  if(key < node->val) node->left = dele(node->left, key);
+    
+  else if (key > node->val) node->right = dele(node->right, key);
 
-  if(placeOfnode->left && placeOfnode->right){
-    Node* suitreplaceNode = succ(placeOfnode);
-    placeOfnode->val = suitreplaceNode->val;
-    placeOfnode = suitreplaceNode;
-  }
-
-  Node* rebalanceStart = placeOfnode->parent;
-  Node* child = (placeOfnode->left) ? placeOfnode->left : placeOfnode->right;
-
-  if(child != nullptr ) child->parent = rebalanceStart;
-
-  if(rebalanceStart == nullptr) root = child;
-
-  if ( rebalanceStart->left ==  placeOfnode){
-    rebalanceStart->left = child;
-  }
-  if (rebalanceStart->right == placeOfnode){
-    rebalanceStart->right = child;
-  }
-  delete placeOfnode;
-
-  
-  while (rebalanceStart != nullptr){
-  modifyHi(rebalanceStart);
-  int balance = getBalance(rebalanceStart);
-  Node* currentParent = rebalanceStart->parent; 
-  Node* newSubtreeRoot = rebalanceStart;
-  if(balance > 1){
-    if(getBalance(rebalanceStart->left)>=0){
-      rebalanceStart = rotation_R(rebalanceStart);
+  else {
+    if(node->left ==nullptr || node->right == nullptr)
+    {
+      Node* temp = node->left?  node->left:node->right;
+      if(temp == nullptr)return nullptr; // no child
+      else {
+        temp->parent = node->parent;//one child
+        return temp;
+      }
     }else {
-      rebalanceStart->left = rotation_L(rebalanceStart);
-      rebalanceStart = rotation_R(rebalanceStart);
+      // Two child
+      Node* s = succ(node);
+      node->val = s->val;// to save the strucure 
+      // now we need to dele the leaf we have replaced with node
+      node->right = dele(node->right, s->val);
+      if(node->right) node->right->parent = node;//this line may make you confused...
+      // we asign it to node (which we need to del) becuse we acutly fixed it while the iterating
+    }
+  }
+
+  // Now, we want to check the balance down-up
+  modifyHi(node);
+  int balance = getBalance(node);
+  
+  if(balance > 1){
+    if(getBalance(node->left)>=0){
+      node = rotation_R(node);
+    }else {
+      node->left = rotation_L(node->left);
+      node = rotation_R(node);
     }
   }
   else if(balance < -1){
-    if(getBalance(rebalanceStart->left )<=0){
-      rebalanceStart = rotation_L(rebalanceStart);
+    if(getBalance(node->left )<=0){
+      node = rotation_L(node);
     }else {
-      rebalanceStart->right = rotation_R(rebalanceStart);
-      rebalanceStart = rotation_L(rebalanceStart);
+      node->right = rotation_R(node->right);
+      node = rotation_L(node);
     }
   }
-  if (currentParent == nullptr) {
-        root = newSubtreeRoot;
-    } else if (currentParent->left == rebalanceStart) {
-        currentParent->left = newSubtreeRoot;
-    } else {
-        currentParent->right = newSubtreeRoot;
-    }
-    rebalanceStart = currentParent;
- 
+  return node;
  }
-}
+ 
 
 void AVL:: inorder(Node* node){
     if(node == nullptr)return;
